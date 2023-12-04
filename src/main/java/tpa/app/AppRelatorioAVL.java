@@ -5,9 +5,9 @@
  */
 package tpa.app;
 //Lembre-se de ajustar os imports!!!!!
-import tpa.lib.ArvoreAVL;
-import tpa.lib.ArvoreBinaria;
-import tpa.lib.IArvoreBinaria;
+import arvores.lib.ArvoreAVL;
+import arvores.lib.ArvoreBinaria;
+import arvores.lib.IArvoreBinaria;
 
 /**
  *

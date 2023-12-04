@@ -5,8 +5,8 @@
  */
 package tpa.app;
 //Ajuste esse importe para que importe sua classe de Árvore binária
-import tpa.lib.ArvoreBinaria;
-import tpa.lib.IArvoreBinaria;
+import arvores.lib.ArvoreBinaria;
+import arvores.lib.IArvoreBinaria;
 
 /**
  *

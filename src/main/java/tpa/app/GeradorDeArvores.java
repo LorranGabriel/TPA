@@ -7,9 +7,8 @@ package tpa.app;
 
 import java.util.Random;
 //Ajuste este import para que sua classe de Arvore Binária seja importada
-import tpa.lib.ArvoreBinaria;
-//Aqui estou importando a interface IArvoreBinaria, a mesma que sua classe de Árvore Binaria deve implementar
-import tpa.lib.IArvoreBinaria;
+import arvores.lib.ArvoreBinaria;
+import arvores.lib.IArvoreBinaria;
 
 /**
  *
