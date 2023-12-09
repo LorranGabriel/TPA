@@ -6,11 +6,16 @@
 package arvores.lib;
  
 import assets.lib.Livro;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JTextArea;
 import tpa.app.Aluno;
@@ -67,8 +72,7 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
                     }
                 }
                 else{
-                    System.out.printf("Valor %s ja existe na arvore.", noatual.getValor().toString()
-                    );
+                    System.out.printf("Valor %s ja existe na arvore.", noatual.getValor().toString());
                 }
             }
         }
@@ -84,8 +88,48 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
 
     @Override
     public T remover(T valor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        No<T> novaRaiz = removerRecursivo(raiz, valor);
+        if (novaRaiz != null) {
+            raiz = novaRaiz;
+            folhas--;
+        }
+        return valor;
     }
+
+    private T encontrarMenorValor(No<T> no) {
+        T menorValor = no.getValor();
+        while (no.getFilhoEsquerda() != null) {
+            menorValor = no.getFilhoEsquerda().getValor();
+            no = no.getFilhoEsquerda();
+        }
+        return menorValor;
+    }
+    
+    private No<T> removerRecursivo(No<T> no, T valor) {
+        if (no == null) {
+            return null;
+        }
+
+        int comparacao = comparador.compare(valor, no.getValor());
+
+        if (comparacao < 0) {
+            no.setFilhoEsquerda(removerRecursivo(no.getFilhoEsquerda(), valor));
+        } else if (comparacao > 0) {
+            no.setFilhoDireita(removerRecursivo(no.getFilhoDireita(), valor));
+        } else {
+            if (no.getFilhoEsquerda() == null) {
+                return no.getFilhoDireita();
+            } else if (no.getFilhoDireita() == null) {
+                return no.getFilhoEsquerda();
+            }
+
+            no.setValor(encontrarMenorValor(no.getFilhoDireita()));
+            no.setFilhoDireita(removerRecursivo(no.getFilhoDireita(), no.getValor()));
+        }
+
+        return no;
+    }
+
 
     @Override
     public int altura() {
@@ -193,13 +237,23 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
         }
         return "";
     }
-   
+
+    public ImageIcon createImageIcon(String imagePath) {
+        try {
+            Image image = ImageIO.read(new File(imagePath));
+            return new ImageIcon(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     @Override
     public void popularJTextAreaImages(JEditorPane textArea, List<Livro> listaDeLivros) {
-        StringBuilder htmlBuilder = new StringBuilder("<html>");
+       StringBuilder htmlBuilder = new StringBuilder("<html>");
 
         for (Livro livro : listaDeLivros) {
             htmlBuilder.append("<p><b>").append(livro.getTitulo()).append("</b></p>");
+            htmlBuilder.append("<img src='").append(livro.getImagemBase64()).append("'/>");
             htmlBuilder.append("<img src='").append(livro.getImagemBase64()).append("'/>");
             htmlBuilder.append("<br>");
         }
@@ -209,5 +263,6 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
         textArea.setContentType("text/html");
         textArea.setEditable(false);
         textArea.setText(htmlBuilder.toString());
+
     }
 }

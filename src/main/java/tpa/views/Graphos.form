@@ -35,7 +35,7 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jScrollPane1" min="-2" pref="466" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" pref="164" max="-2" attributes="0"/>
@@ -48,8 +48,8 @@
                       <Component id="OrdenaGrapho" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="AdicionaVertice" min="-2" max="-2" attributes="0"/>
-                          <Component id="AdicionaAresta" min="-2" pref="139" max="-2" attributes="0"/>
+                          <Component id="AdicionarIndicacao" min="-2" max="-2" attributes="0"/>
+                          <Component id="AdicionarDependencia" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -76,9 +76,9 @@
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="AdicionaVertice" min="-2" max="-2" attributes="0"/>
+                      <Component id="AdicionarIndicacao" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="AdicionaAresta" min="-2" max="-2" attributes="0"/>
+                      <Component id="AdicionarDependencia" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -99,7 +99,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Liberation Sans" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Visualiza&#xe7;&#xe3;o"/>
+        <Property name="text" type="java.lang.String" value="Leituras"/>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
@@ -136,20 +136,20 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="VoltaMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="AdicionaVertice">
+    <Component class="javax.swing.JButton" name="AdicionarIndicacao">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Adicionar Vertice"/>
+        <Property name="text" type="java.lang.String" value="Adicionar Indicacao"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AdicionaVerticeMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AdicionarIndicacaoMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="AdicionaAresta">
+    <Component class="javax.swing.JButton" name="AdicionarDependencia">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Adiciona Aresta"/>
+        <Property name="text" type="java.lang.String" value="Adicionar Dependencia"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AdicionaArestaMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AdicionarDependenciaMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="VerificaCiclo">

@@ -31,14 +31,6 @@ public class Graphos extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         insert_viewer = new Insert();
 
-        grapho.adicionarVertice("sapato");
-        grapho.adicionarVertice("meia");
-        grapho.adicionarVertice("tenis");
-
-        grapho.adicionarAresta("sapato", "meia");
-        grapho.adicionarAresta("sapato", "tenis");
-        grapho.adicionarAresta("meia", "tenis");
-
         System.out.println(grapho.populaVizualizacao());
         DemonstracaoGrapho.setText(grapho.populaVizualizacao()); 
     }
@@ -57,8 +49,8 @@ public class Graphos extends javax.swing.JFrame {
         DemonstracaoGrapho = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         Volta = new javax.swing.JButton();
-        AdicionaVertice = new javax.swing.JButton();
-        AdicionaAresta = new javax.swing.JButton();
+        AdicionarIndicacao = new javax.swing.JButton();
+        AdicionarDependencia = new javax.swing.JButton();
         VerificaCiclo = new javax.swing.JButton();
         OrdenaGrapho = new javax.swing.JButton();
         VizualizaVerificacao = new javax.swing.JLabel();
@@ -71,7 +63,7 @@ public class Graphos extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        jLabel1.setText("Visualização");
+        jLabel1.setText("Leituras");
 
         DemonstracaoGrapho.setColumns(20);
         DemonstracaoGrapho.setRows(5);
@@ -87,17 +79,17 @@ public class Graphos extends javax.swing.JFrame {
             }
         });
 
-        AdicionaVertice.setText("Adicionar Vertice");
-        AdicionaVertice.addMouseListener(new java.awt.event.MouseAdapter() {
+        AdicionarIndicacao.setText("Adicionar Indicacao");
+        AdicionarIndicacao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AdicionaVerticeMouseClicked(evt);
+                AdicionarIndicacaoMouseClicked(evt);
             }
         });
 
-        AdicionaAresta.setText("Adiciona Aresta");
-        AdicionaAresta.addMouseListener(new java.awt.event.MouseAdapter() {
+        AdicionarDependencia.setText("Adicionar Dependencia");
+        AdicionarDependencia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AdicionaArestaMouseClicked(evt);
+                AdicionarDependenciaMouseClicked(evt);
             }
         });
 
@@ -129,7 +121,7 @@ public class Graphos extends javax.swing.JFrame {
                 .addGap(94, 94, 94))
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,8 +133,8 @@ public class Graphos extends javax.swing.JFrame {
                         .addComponent(OrdenaGrapho)
                         .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AdicionaVertice)
-                            .addComponent(AdicionaAresta, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(AdicionarIndicacao)
+                            .addComponent(AdicionarDependencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -161,9 +153,9 @@ public class Graphos extends javax.swing.JFrame {
                             .addComponent(OrdenaGrapho))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(AdicionaVertice)
+                        .addComponent(AdicionarIndicacao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AdicionaAresta)
+                        .addComponent(AdicionarDependencia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,10 +180,10 @@ public class Graphos extends javax.swing.JFrame {
         this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_VoltaMouseClicked
 
-    private void AdicionaArestaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdicionaArestaMouseClicked
+    private void AdicionarDependenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdicionarDependenciaMouseClicked
              adiciona_aresta = new AdicionarAresta(grapho,DemonstracaoGrapho);
              adiciona_aresta.setVisible(true);// TODO add your handling code here:
-    }//GEN-LAST:event_AdicionaArestaMouseClicked
+    }//GEN-LAST:event_AdicionarDependenciaMouseClicked
 
     private void VerificaCicloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VerificaCicloMouseClicked
         if (grapho.contemCiclo()) 
@@ -205,11 +197,11 @@ public class Graphos extends javax.swing.JFrame {
                // TODO add your handling code here:
     }//GEN-LAST:event_VerificaCicloMouseClicked
 
-    private void AdicionaVerticeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdicionaVerticeMouseClicked
+    private void AdicionarIndicacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdicionarIndicacaoMouseClicked
         // TODO add your handling code here:
         adiciona_vertice = new AdicionarVertice(grapho,DemonstracaoGrapho);
         adiciona_vertice.setVisible(true);// TODO add your handling code here:
-    }//GEN-LAST:event_AdicionaVerticeMouseClicked
+    }//GEN-LAST:event_AdicionarIndicacaoMouseClicked
 
     private void OrdenaGraphoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdenaGraphoMouseClicked
         // TODO add your handling code here:
@@ -257,8 +249,8 @@ public class Graphos extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AdicionaAresta;
-    private javax.swing.JButton AdicionaVertice;
+    private javax.swing.JButton AdicionarDependencia;
+    private javax.swing.JButton AdicionarIndicacao;
     private javax.swing.JTextArea DemonstracaoGrapho;
     private javax.swing.JButton OrdenaGrapho;
     private javax.swing.JButton VerificaCiclo;
