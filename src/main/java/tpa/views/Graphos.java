@@ -4,7 +4,7 @@
  */
 package tpa.views;
 import tpa.app.Aluno;
-import tpa.app.ComparadorAlunoPorMatricula;
+import tpa.app.ComparadorLivrosPorNome;
 import tpa.app.GeradorDeArvores;
 import arvores.lib.ArvoreAVL;
 import arvores.lib.IArvoreBinaria;

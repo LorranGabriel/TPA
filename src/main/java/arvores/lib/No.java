@@ -10,59 +10,47 @@ package arvores.lib;
  * @author victoriocarvalho
  */
 public class No<T> {
-    
     private T valor;
-    private No<T> filhoDireita;
     private No<T> filhoEsquerda;
+    private No<T> filhoDireita;
+    private int altura; // Nova propriedade para armazenar a altura do nó.
 
-    
-    public No(T valor){
+    public No(T valor) {
         this.valor = valor;
-        this.filhoDireita = null;
         this.filhoEsquerda = null;
+        this.filhoDireita = null;
+        this.altura = 1; // Inicializa a altura como 1, já que é um nó folha.
     }
-    
-    /**
-     * @return the valor
-     */
+
     public T getValor() {
         return valor;
     }
 
-    /**
-     * @param valor the valor to set
-     */
     public void setValor(T valor) {
         this.valor = valor;
     }
 
-    /**
-     * @return the filhoDireita
-     */
-    public No<T> getFilhoDireita() {
-        return filhoDireita;
-    }
-
-    /**
-     * @param filhoDireita the filhoDireita to set
-     */
-    public void setFilhoDireita(No<T> filhoDireita) {
-        this.filhoDireita = filhoDireita;
-    }
-
-    /**
-     * @return the filhoEsquerda
-     */
     public No<T> getFilhoEsquerda() {
         return filhoEsquerda;
     }
 
-    /**
-     * @param filhoEsquerda the filhoEsquerda to set
-     */
     public void setFilhoEsquerda(No<T> filhoEsquerda) {
         this.filhoEsquerda = filhoEsquerda;
     }
-    
-    
+
+    public No<T> getFilhoDireita() {
+        return filhoDireita;
+    }
+
+    public void setFilhoDireita(No<T> filhoDireita) {
+        this.filhoDireita = filhoDireita;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
 }

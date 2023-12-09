@@ -3,13 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package tpa.views;
-import tpa.app.Aluno;
-import tpa.app.ComparadorAlunoPorMatricula;
+import tpa.app.ComparadorLivrosPorNome;
 import tpa.app.GeradorDeArvores;
 import arvores.lib.ArvoreAVL;
 import arvores.lib.IArvoreBinaria;
+import assets.lib.Livro;
 import graphos.lib.Grapho;
+import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author breno
@@ -18,13 +20,24 @@ public class Arvores extends javax.swing.JFrame {
     public Insert insert_viewer;
     public String arvoreMontada;
     public Init inicio_viewer;
-    
+    public Livro livros;
+    private List<Livro> listaLivros = new ArrayList<>();
+    public IArvoreBinaria<Livro> arv;
+
     /**
      * Creates new form SistemaAcademico
      */
     public Arvores() {
         initComponents();
         this.setLocationRelativeTo(null);
+        listaLivros = livros.carregaLivros();
+
+        GeradorDeArvores gerador = new GeradorDeArvores();
+        ComparadorLivrosPorNome comparador = new ComparadorLivrosPorNome();
+        arv = (IArvoreBinaria<Livro>) new ArvoreAVL(comparador);
+        gerador.geraArvoreDegenerada(listaLivros, arv);
+        System.out.println("Árvore AVL Criada");
+        System.out.println("Quantidade de Nós: " + arv.quantidadeNos()+ " Altura: " + arv.altura());
     }
 
     /**
@@ -37,18 +50,16 @@ public class Arvores extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        DemonstracaoArvore = new javax.swing.JTextArea();
+        VisualizaArvore = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        buscarAluno = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        DemonstracaoArvore = new javax.swing.JEditorPane();
+        VisualizaLista = new javax.swing.JButton();
 
         setUndecorated(true);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -60,43 +71,20 @@ public class Arvores extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         jLabel1.setText("Arvore");
 
-        jButton2.setText("Inserir Dados");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        VisualizaArvore.setText("Visualiza Arvore");
+        VisualizaArvore.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                VisualizaArvoreMouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        VisualizaArvore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                VisualizaArvoreActionPerformed(evt);
             }
         });
-
-        DemonstracaoArvore.setColumns(20);
-        DemonstracaoArvore.setRows(5);
-        jScrollPane1.setViewportView(DemonstracaoArvore);
 
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         jLabel2.setText("Arvores");
-
-        buscarAluno.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        buscarAluno.setText("Buscar Aluno");
-        buscarAluno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarAlunoActionPerformed(evt);
-            }
-        });
-
-        jButton3.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        jButton3.setText("Listar Aluno");
-
-        jButton4.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        jButton4.setText("Remover Aluno");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Insira a quantidade de nós");
 
@@ -116,6 +104,15 @@ public class Arvores extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setViewportView(DemonstracaoArvore);
+
+        VisualizaLista.setText("Visualiza Lista");
+        VisualizaLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VisualizaListaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,35 +121,33 @@ public class Arvores extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(113, 113, 113)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(buscarAluno)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton4))
-                                .addGap(237, 237, 237)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(247, 247, 247))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(113, 113, 113)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(107, 107, 107))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jCheckBox1)
-                                        .addGap(42, 42, 42)
-                                        .addComponent(jCheckBox2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton2)))))
-                        .addGap(94, 94, 94))
+                                .addComponent(jCheckBox1)
+                                .addGap(42, 42, 42)
+                                .addComponent(jCheckBox2)
+                                .addGap(140, 140, 140))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(VisualizaLista)
+                        .addGap(50, 50, 50)
+                        .addComponent(VisualizaArvore)
+                        .addGap(303, 303, 303)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(302, 302, 302))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(114, 114, 114))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,27 +163,22 @@ public class Arvores extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jCheckBox2))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox2))))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buscarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                            .addComponent(VisualizaArvore, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(VisualizaLista))))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         jLabel1.getAccessibleContext().setAccessibleDescription("");
@@ -200,35 +190,25 @@ public class Arvores extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formMouseClicked
 
-    private void buscarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlunoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buscarAlunoActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void VisualizaArvoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VisualizaArvoreMouseClicked
         try {
-            GeradorDeArvores gerador = new GeradorDeArvores();
+            
+         
+//            arv.popularJTextAreaImages(DemonstracaoArvore,listaLivros);
+            arvoreMontada =  arv.imprimirArvore();
 
-            IArvoreBinaria<Aluno> arv;
-            ComparadorAlunoPorMatricula comparador = new ComparadorAlunoPorMatricula();
-            arv = new ArvoreAVL(comparador);
-            gerador.geraArvoreDegenerada(100, arv);
-            System.out.println("Árvore AVL Criada");
-            System.out.println("Quantidade de Nós: " + arv.quantidadeNos()+ " Altura: " + arv.altura());
-            arvoreMontada = arv.imprimirArvore();
         } catch (Exception e) {
             System.out.println("Quantidade de Nós: " +e);
 
         }
-        DemonstracaoArvore.setText(arvoreMontada);
-    }//GEN-LAST:event_jButton2MouseClicked
+        DemonstracaoArvore.setContentType("text/plain");
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DemonstracaoArvore.setText(arvoreMontada);
+    }//GEN-LAST:event_VisualizaArvoreMouseClicked
+
+    private void VisualizaArvoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizaArvoreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_VisualizaArvoreActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -239,6 +219,12 @@ public class Arvores extends javax.swing.JFrame {
         inicio_viewer.setVisible(true);
         this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void VisualizaListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VisualizaListaMouseClicked
+        // TODO add your handling code here:
+        arv.popularJTextAreaImages(DemonstracaoArvore,listaLivros);
+
+    }//GEN-LAST:event_VisualizaListaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -278,18 +264,16 @@ public class Arvores extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea DemonstracaoArvore;
-    private javax.swing.JButton buscarAluno;
+    private javax.swing.JEditorPane DemonstracaoArvore;
+    private javax.swing.JButton VisualizaArvore;
+    private javax.swing.JButton VisualizaLista;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

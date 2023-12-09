@@ -5,7 +5,10 @@
  */
 package arvores.lib;
 
+import assets.lib.Livro;
 import java.util.Comparator;
+import java.util.List;
+import javax.swing.JEditorPane;
 
 /**
  *
@@ -55,7 +58,6 @@ public interface IArvoreBinaria<T> {
      * @return Retorna a quantidade de nós da árvore
      */
     public int quantidadeNos();
-
     
     /**
      * Metódo que retona o resultado do caminhamento em nível na árvore.
@@ -83,5 +85,6 @@ public interface IArvoreBinaria<T> {
     public void reiniciarNavegacao();
 
     public String imprimirArvore();
+    public void popularJTextAreaImages(JEditorPane textArea, List<Livro> listaDeLivros);
 
 }

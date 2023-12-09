@@ -9,6 +9,8 @@ import java.util.Random;
 //Ajuste este import para que sua classe de Arvore Binária seja importada
 import arvores.lib.ArvoreBinaria;
 import arvores.lib.IArvoreBinaria;
+import assets.lib.Livro;
+import java.util.List;
 
 /**
  *
@@ -102,16 +104,14 @@ public class GeradorDeArvores {
      */
     
 //---Este é o método citado na questão 4 do primeiro relatório
-    public void geraArvoreDegenerada(int n, IArvoreBinaria<Aluno> arv){ 
+    public void geraArvoreDegenerada(List<Livro> listaLivros, IArvoreBinaria<Livro> arv){ 
         //inicio matricula com o valor da constante matriculaBase
         int i,matricula= matriculaBase;
-        String nome;
-        for(i=1;i<=n;i++){
+        System.out.println(listaLivros.size());
+        for(i=0;i<=listaLivros.size()-1;i++){
             //Cada vez que entra a matrícula é incrementada em 1.
-             matricula++;
-             nome = geraNomeCompleto();
              //Aqui crio um aluno com os dados gerados e o adiciono na árvore.
-             arv.adicionar(new Aluno(matricula,nome));
+             arv.adicionar(new Livro(listaLivros.get(i).getTitulo(),listaLivros.get(i).getCaminho(),listaLivros.get(i).getImagemBase64()));
         }     
     }
     

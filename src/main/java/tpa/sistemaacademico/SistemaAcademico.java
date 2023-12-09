@@ -4,9 +4,8 @@
  */
 package tpa.sistemaacademico;
 import tpa.app.Aluno;
-import tpa.app.ComparadorAlunoPorMatricula;
+import tpa.app.ComparadorLivrosPorNome;
 import tpa.app.GeradorDeArvores;
-import tpa.lib.ArvoreAVL;
 import tpa.lib.IArvoreBinaria;
 /**
  *
@@ -188,15 +187,14 @@ public class SistemaAcademico extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         try {
-            GeradorDeArvores gerador = new GeradorDeArvores();
-
-            IArvoreBinaria<Aluno> arv;
-            ComparadorAlunoPorMatricula comparador = new ComparadorAlunoPorMatricula();
-            arv = new ArvoreAVL(comparador);
-            gerador.geraArvoreDegenerada(100, arv);
-            System.out.println("Árvore AVL Criada");
-            System.out.println("Quantidade de Nós: " + arv.quantidadeNos()+ " Altura: " + arv.altura());
-            arvoreMontada = arv.imprimirArvore();
+//            GeradorDeArvores gerador = new GeradorDeArvores();
+//
+//            IArvoreBinaria<Aluno> arv;
+//            ComparadorAlunoPorMatricula comparador = new ComparadorAlunoPorMatricula();
+//            gerador.geraArvoreDegenerada(100, (arvores.lib.IArvoreBinaria<Aluno>) arv);
+//            System.out.println("Árvore AVL Criada");
+//            System.out.println("Quantidade de Nós: " + arv.quantidadeNos()+ " Altura: " + arv.altura());
+//            arvoreMontada = arv.imprimirArvore();
         } catch (Exception e) {
             System.out.println("Quantidade de Nós: " +e);
 
